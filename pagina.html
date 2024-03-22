@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latitude</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    footer {
+        margin-top: auto;
+        background-color: #f0f0f0;
+        padding: 10px;
+        text-align: left;
+    }
+
+    input[type=number], button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    #resultado {
+        font-weight: bold;
+    }
+</style>
+
+</head>
+
+<body>
+
+<h2>Calculate latitude by solar altitude</h2>
+
+<p>
+<label for="valor1">Altitude (h) in degrees:</label>
+<input type="number" id="valor1" placeholder="Enter altitude in degrees">
+</p>
+
+<p>
+<label for="valor2">Declination (δ) in degrees:</label>
+<input type="number" id="valor2" placeholder="Enter declination in degrees">
+</p>
+
+<p>
+<label for="valor3">Hour angle (H) in hours:</label>
+<input type="number" id="valor3" placeholder="Enter hour angle in hours">
+</p>
+
+<p>
+<label for="valor4">Azimuth (A) in degrees:</label>
+<input type="number" id="valor4" placeholder="Enter azimuth in degrees">
+</p>
+
+<button onclick="somarValores()">Calculate</button>
+
+<p id="resultado"></p>
+
+<script>
+function somarValores() {
+    var valor1 = document.getElementById('valor1').value;
+    var valor2 = document.getElementById('valor2').value;
+    var valor3 = document.getElementById('valor3').value;
+    var valor4 = document.getElementById('valor4').value;
+    
+    var rad1 = parseFloat(valor1) * (Math.PI / 180);
+    var rad2 = parseFloat(valor2) * (Math.PI / 180);
+    var rad3 = 15.000000000 * parseFloat(valor3) * (Math.PI / 180);
+    var rad4 = parseFloat(valor4) * (Math.PI / 180);
+    
+    var tg = (Math.sin(2*rad1) * Math.cos(rad4) - Math.sin(2*rad2) * Math.cos(rad3)) / (Math.cos(2*rad1) - Math.cos(2*rad2));
+    var resultg = Math.atan(tg);
+    var result = resultg * (180.000000000 / Math.PI);
+
+    document.getElementById('resultado').innerText = 'Result: ' + result + ' deg';
+}
+</script>
+
+<footer>
+    Created by <strong>Saulo de Oliveira Cantanhêde</strong> - <script>document.write(new Date().toLocaleDateString());</script>
+</footer>
+
+</body>
+</html>
